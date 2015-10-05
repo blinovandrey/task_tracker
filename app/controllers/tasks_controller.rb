@@ -74,7 +74,7 @@ private
 
   def project_user
       @project = Project.find(params[:project_id])
-      redirect_to project_path(@project) unless @project.users.include?(current_user)
+      redirect_to project_path(@project) unless @project.users.include?(current_user) || current_user.admin?
     end
 
 end
