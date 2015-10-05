@@ -1,0 +1,13 @@
+<h1>All taks in poject <% @project %></h1>
+<% if user_signed_in? %>
+<%= link_to "New task", new_project_path,
+                                class: "btn btn-large btn-primary" %>
+<% end %>
+<ul>
+  <% @projects.each do |project| %>
+  <li>  	
+    <h1> <%=link_to project.title, project %> </h1>
+    <p>  <%=project.description %> </p>
+    <% end %>
+  </li>
+</ul>

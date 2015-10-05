@@ -1,0 +1,2 @@
+<%= f.label :executor %><br>
+<%= f.collection_select(:executor_id, @project.users, :id, :email) %>

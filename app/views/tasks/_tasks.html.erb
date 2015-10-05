@@ -1,0 +1,22 @@
+<div class="container-fluid">
+<div class="row-fluid">
+    <div class="span9">
+      <div class="span2"></div>
+<% @sep.each do |s, col| %>     
+    <div class="tasks span2">
+      <span><h3><%= s.to_s.humanize %></h3></span>
+    <% col.each do |t| %>
+      <%= render t %>
+      <% end %>
+</div>
+
+      <% end %>
+</div>
+<div class="span2">
+    Tags: 
+<% @tags.each do |tag| %>
+<%=link_to tag.name, project_tagged_path(project_id: @project.id, tag: tag.name) %>
+<% end %>
+  </div>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="span6 offset3">
+      
+    <%= form_for [@project, @task] do |f| %>
+      <div>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+
+      <div>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+      </div>
+
+      <div>
+        <%= f.label :executor %>
+        <%= f.collection_select(:executor_id, @project.users, :id, :email) %>
+      </div>
+
+      <div>
+        <%= f.label :state %>
+        <!--%= f.select(:state, Task::STATES.map {|k,v| [k, v]}) %-->
+        <%= f.collection_select(:state_event, @task.state_transitions, :event, :human_event, :include_blank => 'No change') %>
+      </div>
+
+      <div>
+      <%= f.label :tags %>
+      <%= f.text_field :tag_list %>
+      </div>
+      
+      <div>
+        <%= f.submit "Save", class: "btn btn-large btn-primary" %>
+      </div>    
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="row">
+	<div class="span8 offset3">
+<h1>Tagged tasks in project <%= @project.title.humanize %></h1>
+</div>
+<div class="span2 offset2">
+<%= link_to "All tasks", @project,
+                                class: "btn btn-large btn-primary" %>
+                            </div>
+
+<div class="span2">
+	<% if user_signed_in? && @project.users.include?(current_user) %>
+<%= link_to "New task", new_project_task_path(@project),
+                                class: "btn btn-large btn-primary" %>
+                            </div>
+
+<% end %>
+</div>
+<%= render 'project' %>
+</div>

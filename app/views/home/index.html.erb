@@ -1,0 +1,7 @@
+<%= link_to "Projects", projects_path,
+                                class: "btn btn-large btn-primary" %>
+<% if user_signed_in? %>
+    <%= render 'users/show' %>
+<% else %>
+    <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
+<% end %>

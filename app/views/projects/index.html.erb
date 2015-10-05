@@ -1,0 +1,23 @@
+<div class="span6 offset3"><h1>All projects</h1></div>
+<% if user_signed_in? && current_user.admin? %>
+<div class="span4 offset3">
+	<%= link_to "Create new project", new_project_path, class: "btn btn-large btn-primary" %><br>
+</div>
+<% end %>
+
+<div class="row">
+	<div class="span6 offset3">
+<ul>
+  <% @projects.each do |project| %>
+  <li>  	
+    <h3> <%=link_to project.title, project %> </h3>
+    <p><%=project.description %>
+    	<% if user_signed_in? && current_user.admin? %>
+    <p><%=link_to "Edit", edit_project_path(project) %> | <%=link_to "Delete", project, method: :delete %>
+    	<% end %>
+    <% end %>
+  </li>
+</ul>
+</div>
+</div>
+
