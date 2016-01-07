@@ -1,31 +1,33 @@
 <h1><%= @selected_user.username %></h1>
 <div class-"row">
-<div class="span6 offset3">
-  <div><p>email: <%= @selected_user.email %></div>
-<div>Projects:
-	<ul>
-  <% @selected_user.projects.each do |project| %>
-  <li>  	
-    <%=link_to project.title, project %>
-    <% if current_user.admin? %>
-    | <%= link_to "delete from project", remove_project_user_path(project_id: project.id), method: :delete %>
+  <div class="span6 offset3">
+    <div><p>email: <%= @selected_user.email %></div>
+    
+    <div>Projects:
+	    <ul>
+        <% @selected_user.projects.each do |project| %>
+          <li>  	
+            <%=link_to project.title, project %>
+            <% if current_user.admin? %>
+              | <%= link_to "delete from project", remove_project_user_path(project_id: project.id), method: :delete %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <% if (@projects-@selected_user.projects).count>0 && current_user.admin? %>
+      <div>
+	      <%= form_for (@selected_user) do |f| %>
+	        <div>
+            <%= f.label "Add user to project" %>
+            <%= f.collection_select(:projects, @projects-@selected_user.projects, :id, :title) %>
+	        </div>
+	        <div>
+            <%= f.submit "Add", class: "btn btn-large btn-primary" %>
+          </div>
+        <% end %>   
+      </div>      
     <% end %>
-    <% end %>
-  </li>
-</ul>
-</div>
-<% if (@projects-@selected_user.projects).count>0 && current_user.admin? %>
-<div>
-	<%= form_for (@selected_user) do |f| %>
-	<div>
-        <%= f.label "Add user to project" %>
-        <%= f.collection_select(:projects, @projects-@selected_user.projects, :id, :title) %>
-	</div>
-	<div>
-        <%= f.submit "Add", class: "btn btn-large btn-primary" %>
-      </div>    
-    <% end %>
-</div>
-<% end %>
-</div>
+  </div>
 </div>

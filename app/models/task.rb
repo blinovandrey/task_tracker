@@ -16,8 +16,7 @@ class Task < ActiveRecord::Base
     event :get_closed do transition [:new, :realized] => :closed; end
    end
 
-    has_and_belongs_to_many :users
-
+  has_and_belongs_to_many :users
   belongs_to :project
   belongs_to :creator, class_name: "User"
   belongs_to :executor, class_name: "User"

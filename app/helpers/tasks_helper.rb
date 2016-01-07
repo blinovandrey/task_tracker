@@ -1,7 +1,7 @@
 module TasksHelper
   include ActsAsTaggableOn::TagsHelper
-public
-def separate_by_state(tasks)
+  public
+  def separate_by_state(tasks)
     out = {
       new: [],
       analyze: [],
@@ -16,5 +16,4 @@ def separate_by_state(tasks)
 
     out
   end
-
 end

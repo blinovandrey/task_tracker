@@ -2,7 +2,7 @@ class PersonsController < ApplicationController
   before_action :authenticate_user!
   before_action :admin
 
-   def new
+  def new
     @new_user = User.new
   end
 
@@ -17,8 +17,7 @@ class PersonsController < ApplicationController
   end
 
 
- private
-
+  private
     def user_params
       params.require(:user).permit(:email, :password, :username, :admin)
     end

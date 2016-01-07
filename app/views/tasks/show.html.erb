@@ -1,52 +1,48 @@
 <div class="row">
   <div class="span9 offset3">
-      <div>
-        <h1><%= @task.title %></h1>
-      </div>
+    <div>
+      <h1><%= @task.title %></h1>
+    </div>
 
-      
-      
-      <div>
-        <p>Description:
-        <%= @task.description %>
-      </div>
+    <div>
+      <p>Description:
+      <%= @task.description %>
+    </div>
 
-      <div>
-        <p>Creator:
-          <% if @task.creator.nil? %>
-            <%= "User deleted" %>
-          <% else %> 
-            <%= link_to @task.creator.username, @task.creator %>
-        <% end %>
-      </div>
+    <div>
+      <p>Creator:
+        <% if @task.creator.nil? %>
+          <%= "User deleted" %>
+        <% else %> 
+          <%= link_to @task.creator.username, @task.creator %>
+      <% end %>
+    </div>
 
-      
+    <div>
+      <p>Executor:
+        <% if @task.executor.nil? %>
+          <%= "User deleted" %>
+        <% else %> 
+          <%= link_to @task.executor.username, @task.executor %>
+      <% end %>
+    </div>
 
-      <div>
-        <p>Executor:
-         <% if @task.executor.nil? %>
-            <%= "User deleted" %>
-          <% else %> 
-            <%= link_to @task.executor.username, @task.executor %>
-        <% end %>
-      </div>
+    <div>
+      <p>State:
+      <%= @task.human_state_name %>
+    </div>
 
-      <div>
-        <p>State:
-        <%= @task.human_state_name %>
-      </div>
+    <div>
+      <p>Tags:
+      <%= @task.tag_list %>
+    </div>
 
-      <div>
-        <p>Tags:
-        <%= @task.tag_list %>
-      </div>
-
-      <div>
-   <%= link_to "Back to project", @project, class: "btn btn-large btn-primary" %>
-  <% if current_user==@creator || current_user==@executor || current_user.admin? %>
-  <%= link_to "Edit task", edit_project_task_path(@project,@task), class: "btn btn-large btn-primary" %>
-  <%= link_to "Delete task", project_task_path(@project,@task), method: :delete, class: "btn btn-large btn-primary" %>
-  <% end %>
+    <div>
+      <%= link_to "Back to project", @project, class: "btn btn-large btn-primary" %>
+      <% if current_user==@creator || current_user==@executor || current_user.admin? %>
+        <%= link_to "Edit task", edit_project_task_path(@project,@task), class: "btn btn-large btn-primary" %>
+        <%= link_to "Delete task", project_task_path(@project,@task), method: :delete, class: "btn btn-large btn-primary" %>
+      <% end %>
     </div>
 
   </div>

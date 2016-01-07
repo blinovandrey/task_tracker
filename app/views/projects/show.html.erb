@@ -1,17 +1,14 @@
 <div class="row">
-	<div class="row">
-	<div class="span7 offset3">
-<h1>All tasks in project <%= @project.title.humanize %></h1>
-</div>
-<div class="span2 offset3">
-	<% if user_signed_in? && (@project.users.include?(current_user) || current_user.admin?) %>
-<%= link_to "New task", new_project_task_path(@project),
-                                class: "btn btn-large btn-primary" %>
-                            </div>
+  <div class="span7 offset3">
+	<h1>All tasks in project <%= @project.title.humanize %></h1>
+  </div>
 
-<% end %>
+  <div class="span2 offset3">
+    <% if user_signed_in? && (@project.users.include?(current_user) || current_user.admin?) %>
+      <%= link_to "New task", new_project_task_path(@project), class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+  
 </div>
 <%= render 'project' %>
-</div>
-
 

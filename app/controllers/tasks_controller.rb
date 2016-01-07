@@ -1,20 +1,21 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_project
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_creator, only: [:show, :edit]
   before_action :creator_executor_or_admin,   only: [:edit, :update, :destroy]
   before_action :project_user, only: [:new, :create]
+
 	def index
-    @project = Project.find(params[:project_id])
     @tasks = @project.tasks.all
   	end
 
   	def new
-    @project = Project.find(params[:project_id])
     @task = @project.tasks.new
     @creator = current_user
   end
 
   def create
-  	@project = Project.find(params[:project_id])
     @task = @project.tasks.new(task_params)
     @task.creator = current_user
     @task.users << current_user
@@ -27,53 +28,49 @@ class TasksController < ApplicationController
   end
 
    def show
-    @project = Project.find(params[:project_id])
-    @task = @project.tasks.find(params[:id])
-    @creator = @task.creator
     @executor = @task.executor
   end
 
   def edit
-    @project = Project.find(params[:project_id])
-    @task = @project.tasks.find(params[:id])
-    @creator = @task.creator
   end
 
   def update
-    @project = Project.find(params[:project_id])
-    @task = @project.tasks.find(params[:id])
-
     if @task.update(task_params)
       redirect_to  project_path(@project)
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def destroy
-    @project = Project.find(params[:project_id])
-    @task = @project.tasks.find(params[:id]).destroy
+    @task.destroy
     redirect_to  project_path(@project)
   end
 
 
-private
-
+  private
     def task_params
-    params.require(:task).permit(:title, :state_event, :description, :creator_id, :executor_id, :tag_list)
-  end
+      params.require(:task).permit(:title, :state_event, :description, :creator_id, :executor_id, :tag_list)
+    end
 
-  def creator_executor_or_admin
+    def set_project
       @project = Project.find(params[:project_id])
-      @task = @project.tasks.find(params[:id])
-      @creator = @task.creator
-      @executor = @task.executor
+    end
 
+    def set_task
+      @task = @project.tasks.find(params[:id])
+    end
+
+    def set_task_creator
+      @creator = @task.creator
+    end
+
+    def creator_executor_or_admin
+      @executor = @task.executor
       redirect_to(project_task_path(@project,@task)) unless current_user==@creator || current_user==@executor || current_user.admin?
     end
 
-  def project_user
-      @project = Project.find(params[:project_id])
+    def project_user
       redirect_to project_path(@project) unless @project.users.include?(current_user) || current_user.admin?
     end
 
