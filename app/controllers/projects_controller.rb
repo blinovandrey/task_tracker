@@ -1,18 +1,18 @@
 class ProjectsController < ApplicationController
-before_action :authenticate_user!, only: [:new, :create, :remove, :edit, :update, :destroy]
-before_action :admin, only: [:new, :create, :remove, :edit, :update, :destroy]
-before_action :set_project, only: [:edit, :update, :destroy, :show]
-before_action :set_project_id, only: [:remove, :tagged]
-before_action :set_tasks_all, only: [:show, :tagged] 
+  before_action :authenticate_user!, only: [:new, :create, :remove, :edit, :update, :destroy]
+  before_action :admin, only: [:new, :create, :remove, :edit, :update, :destroy]
+  before_action :set_project, only: [:edit, :update, :destroy, :show]
+  before_action :set_project_id, only: [:remove, :tagged]
+  before_action :set_tasks_all, only: [:show, :tagged] 
 
   include TasksHelper
   
   def index
-	@projects = Project.all
+	  @projects = Project.all
   end
 
   def new
- 	@project = Project.new
+ 	  @project = Project.new
   end
 
   def edit

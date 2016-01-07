@@ -17,14 +17,14 @@ class UsersController < ApplicationController
   	redirect_to user_path
   end
 
-private
-  def admin
-    @user = User.find(params[:id])
-    redirect_to(user_path(@user)) unless current_user.admin?
-  end
+  private
+    def admin
+      @user = User.find(params[:id])
+      redirect_to(user_path(@user)) unless current_user.admin?
+    end
 
-  def select_user
-    @selected_user=User.find(params[:id])
-  end
+    def select_user
+      @selected_user=User.find(params[:id])
+    end
 
 end

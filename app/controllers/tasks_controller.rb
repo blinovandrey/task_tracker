@@ -6,11 +6,11 @@ class TasksController < ApplicationController
   before_action :creator_executor_or_admin,   only: [:edit, :update, :destroy]
   before_action :project_user, only: [:new, :create]
 
-	def index
+  def index
     @tasks = @project.tasks.all
-  	end
+  end
 
-  	def new
+  def new
     @task = @project.tasks.new
     @creator = current_user
   end
